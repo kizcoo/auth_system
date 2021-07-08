@@ -1,0 +1,7 @@
+# .git .idea .target
+.git/*
+.idea/*
+target/*
+.gitignore
+!pom.xml
+!docs

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+<!--    基本元素需要按照次序声明 -->
+<!--    icon元素: 指定web应用站点的图像文件位置 -->
+    <icon>
+        <small-icon>/static/image/ico/60e50ca2371da_16px.ico</small-icon>
+        <large-icon>/static/image/ico/60e50ca2371da_32px.ico</large-icon>
+    </icon>
+
+<!--    display-name：标记web应用的一个名称 -->
+    <display-name>权限系统</display-name>
+
+<!--    description： 给出有关的文本说明 -->
+    <description>this is a system for authority</description>
+
+<!--    context-param: 声明应用范围内的初始化参数 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:*applicationContext-*.xml</param-value>
+    </context-param>
+
+<!--    filter： 声明过滤器 -->
+    <filter>
+        <filter-name>openSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+
+<!--    filter-mapping: 指定filter对应的一个或多个servlet或jsp页面 -->
+    <filter-mapping>
+        <filter-name>openSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+<!--    listener: servlet2.3增加的对事件监听程序的支持，
+        事件监听程序在建立、修改和删除会话或servlet环境时得到通知 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
