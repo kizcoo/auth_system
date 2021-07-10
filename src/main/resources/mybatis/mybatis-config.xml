@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+<!--        指定使用LOG4J输出日志 -->
+        <setting name="logImpl" value="LOG4J" />
+    </settings>
+
+    <typeAliases>
+<!--        配置包的别名，在使用类时不需要写包名的部分 -->
+        <package name="com.kiccheavenx.domain.entity" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC">
+                <property name="" value="" />
+            </transactionManager>
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/sys_auth" />
+                <property name="username" value="root" />
+                <property name="password" value="" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mybatis/mapper/SysApiMapper.xml" />
+        <mapper resource="mybatis/mapper/SysPageFunctionMapper.xml" />
+        <mapper resource="mybatis/mapper/SysPageMapper.xml" />
+        <mapper resource="mybatis/mapper/SysRoleMapper.xml" />
+        <mapper resource="mybatis/mapper/SysUserMapper.xml" />
+    </mappers>
+</configuration>

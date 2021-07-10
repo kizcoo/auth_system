@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiccheavenx.dao.SysUserMapper">
+    <resultMap id="userMap" type="com.kiccheavenx.domain.entity.SysUser">
+        <id property="id" column="id" />
+        <result property="account" column="account" />
+        <result property="username" column="username" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user(username, account, status, create_time, update_time)
+        VALUES(#{username}, #{account}, #{status}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="updateByIdUser">
+        update sys_user set
+        account = #{account}, username = #{username}, status = #{status},
+        create_time = #{createTime,jdbcType=TIMESTAMP}, update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </update>
+    <delete id="deleteByIdUser">
+        delete from sys_user where id = #{id}
+    </delete>
+    <select id="selectByIdUser" resultMap="userMap">
+        select id, account, username, status, create_time, update_time from sys_user where id = #{id};
+    </select>
+    <select id="selectAll" resultMap="userMap">
+        select id, account, username, status, create_time, update_time from sys_user;
+    </select>
+</mapper>
