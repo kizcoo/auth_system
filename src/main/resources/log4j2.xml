@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 日志框架级别： WARN -->
+<Configuration status="WARN">
+    <Appenders>
+<!--        输出到控制台 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+<!--        输出到文件,默认以当前项目为相对路径 -->
+        <File name="fileAppender" fileName="docs/logs/app.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+    </Appenders>
+    <Loggers>
+<!--        一个logger可配置多个appender输出到不同位置 -->
+        <Root level="all">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="fileAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
