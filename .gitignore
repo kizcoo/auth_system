@@ -1,0 +1,7 @@
+.git/
+.idea/
+src/test/
+target/
+!docs
+!pom.xml
+!README.md
