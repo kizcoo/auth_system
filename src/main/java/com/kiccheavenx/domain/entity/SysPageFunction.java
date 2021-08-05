@@ -16,6 +16,9 @@ public class SysPageFunction {
 
     private List<SysApi> apiList;
 
+    public SysPageFunction() {
+    }
+
     public List<SysRole> getRoleList() {
         return roleList;
     }

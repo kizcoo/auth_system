@@ -26,8 +26,8 @@ create table sys_user_role(
     UNIQUE INDEX(user_id),
     UNIQUE INDEX(role_id),
     PRIMARY KEY(id),
-    constraint tk_user_role1 FOREIGN KEY(user_id) REFERENCES sys_user(id),
-    constraint tk_user_role2 FOREIGN KEY(role_id) REFERENCES sys_role(id)
+    constraint fk_user_role1 FOREIGN KEY(user_id) REFERENCES sys_user(id) on delete cascade,
+    constraint fk_user_role2 FOREIGN KEY(role_id) REFERENCES sys_role(id) on delete cascade
 );
 
 -- 前端页面权限实体
@@ -51,8 +51,8 @@ create table sys_role_page(
     UNIQUE INDEX(role_id),
     UNIQUE INDEX(page_id),
     PRIMARY KEY(id),
-    constraint tk_role_page1 FOREIGN KEY(role_id) REFERENCES sys_role(id),
-    constraint tk_role_page2 FOREIGN KEY(page_id) REFERENCES sys_page(id)
+    constraint fk_role_page1 FOREIGN KEY(role_id) REFERENCES sys_role(id) on delete cascade,
+    constraint fk_role_page2 FOREIGN KEY(page_id) REFERENCES sys_page(id) on delete cascade
 );
 
 -- 后端接口权限实体
@@ -74,8 +74,8 @@ create table sys_api_page(
     PRIMARY KEY(id),
     UNIQUE INDEX(api_id),
     UNIQUE INDEX(page_id),
-    constraint tk_api_page1 FOREIGN KEY(api_id) REFERENCES sys_api(id),
-    constraint tk_api_page2 FOREIGN KEY(page_id) REFERENCES sys_page(id)
+    constraint fk_api_page1 FOREIGN KEY(api_id) REFERENCES sys_api(id) on delete cascade,
+    constraint fk_api_page2 FOREIGN KEY(page_id) REFERENCES sys_page(id) on delete cascade
 );
 
 -- 前端功能权限实体
@@ -87,9 +87,9 @@ create table sys_page_function(
     add_time DATETIME(0) not null COMMENT '添加时间',
     status TINYINT(5) not null DEFAULT '1' COMMENT '权限状态(1:启用， 0:禁用)',
     PRIMARY KEY(id),
-    UNIQUE INDEX(page_id),
+    INDEX(page_id),
     UNIQUE INDEX(_key),
-    constraint tk_page_function FOREIGN KEY(page_id) REFERENCES sys_page(id) on delete CASCADE on update cascade
+    constraint fk_page_function FOREIGN KEY(page_id) REFERENCES sys_page(id) on delete CASCADE on update cascade
 );
 
 -- 前端功能权限-角色
@@ -102,9 +102,9 @@ create table sys_page_role_function(
     UNIQUE INDEX(role_id),
     UNIQUE INDEX(function_id),
     PRIMARY KEY(id),
-    constraint tk_page_role_function1 FOREIGN KEY(page_id) REFERENCES sys_page(id),
-    constraint tk_page_role_function2 FOREIGN KEY(role_id) REFERENCES sys_role(id),
-    constraint tk_page_role_function3 FOREIGN KEY(function_id) REFERENCES sys_page_function(id)
+    constraint fk_page_role_function1 FOREIGN KEY(page_id) REFERENCES sys_page(id) on delete cascade,
+    constraint fk_page_role_function2 FOREIGN KEY(role_id) REFERENCES sys_role(id) on delete cascade,
+    constraint fk_page_role_function3 FOREIGN KEY(function_id) REFERENCES sys_page_function(id) on delete cascade
 );
 
 -- 前端功能权限-后端接口权限
@@ -116,6 +116,6 @@ create table sys_api_function(
     PRIMARY KEY(id),
     UNIQUE INDEX(api_id),
     UNIQUE INDEX(function_id),
-    constraint tk_api_function1 FOREIGN KEY(api_id) REFERENCES sys_api(id),
-    constraint tk_api_function2 FOREIGN KEY(function_id) REFERENCES sys_page_function(id)
+    constraint fk_api_function1 FOREIGN KEY(api_id) REFERENCES sys_api(id) on delete cascade,
+    constraint fk_api_function2 FOREIGN KEY(function_id) REFERENCES sys_page_function(id) on delete cascade
 );

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kiccheavenx.dao.SysApiMapper">
+
     <resultMap id="apiMap" type="com.kiccheavenx.domain.entity.SysApi">
         <id property="id" column="id" />
         <result property="status" column="status" />
@@ -9,6 +10,38 @@
         <result property="addTime" column="add_time" jdbcType="TIMESTAMP" />
         <result property="path" column="path" />
     </resultMap>
+
+    <sql id="default_sort_limit">
+        <trim prefix="order by">
+            <if test="sort_column != null and sort_column != ''">
+                <choose>
+                    <when test="isAsce">
+                        #{sort_column} desc
+                    </when>
+                    <otherwise>
+                        #{sort_column}
+                    </otherwise>
+                </choose>
+            </if>
+        </trim>
+        <trim prefix="limit">
+            <if test="start != null and start >= 0">
+                #{start},
+            </if>
+            <choose>
+                <when test="count != null and count > 0">
+                    #{count}
+                </when>
+                <otherwise>
+                    20
+                </otherwise>
+            </choose>
+        </trim>
+    </sql>
+
+    <sql id="default_select_column">
+        select id, status, name, add_time, path from sys_api
+    </sql>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
         insert into sys_api(name, status, add_time, path)
         values(#{name}, #{status}, #{addTime,jdbcType=TIMESTAMP}, #{path})
@@ -22,9 +55,31 @@
         delete from sys_api where id = #{id}
     </delete>
     <select id="selectByIdApi" resultMap="apiMap">
-        select id, status, name, add_time, path from sys_api where id = #{id};
+         <include refid="default_select_column" />
+         where id = #{id};
     </select>
     <select id="selectAll" resultMap="apiMap">
-        select id, status, name, add_time, path from sys_api;
+        <include refid="default_select_column" />
+        <include refid="default_sort_limit" />
+    </select>
+    <select id="selectByNameApi" resultMap="apiMap">
+        <include refid="default_select_column" />
+        where name like #{pattern}
+        <include refid="default_sort_limit" />
+    </select>
+    <select id="selectByPathApi" resultMap="apiMap">
+        <include refid="default_select_column" />
+        where path like #{pattern}
+        <include refid="default_sort_limit" />
+    </select>
+    <select id="selectByNameApiRegExp" resultMap="apiMap">
+        <include refid="default_select_column" />
+        where name regexp #{pattern}
+        <include refid="default_sort_limit" />
+    </select>
+    <select id="selectByPathApiRegExp" resultMap="apiMap">
+        <include refid="default_select_column" />
+        where path regexp #{pattern}
+        <include refid="default_sort_limit" />
     </select>
 </mapper>

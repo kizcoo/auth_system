@@ -13,6 +13,9 @@ public class SysRole {
 
     private List<SysPage> pageList;
 
+    public SysRole() {
+    }
+
     public List<SysUser> getUserList() {
         return userList;
     }

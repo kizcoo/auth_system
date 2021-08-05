@@ -3,9 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+<!--    引入外部配置文件 -->
+    <properties resource="classpath:db.properties" />
+
     <settings>
 <!--        指定使用LOG4J输出日志 -->
         <setting name="logImpl" value="LOG4J" />
+<!--        显式开启全局缓存 -->
+        <setting name="cacheEnabled" value="true" />
+<!--        是否自动开启驼峰命名规则映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
 
     <typeAliases>
@@ -18,11 +26,12 @@
             <transactionManager type="JDBC">
                 <property name="" value="" />
             </transactionManager>
-            <dataSource type="UNPOOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://localhost:3306/sys_auth" />
-                <property name="username" value="root" />
-                <property name="password" value="" />
+<!--            配置连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${username}" />
+                <property name="password" value="${password}" />
             </dataSource>
         </environment>
     </environments>

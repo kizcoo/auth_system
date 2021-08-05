@@ -13,6 +13,9 @@ public class SysApi {
 
     private List<SysPage> pageList;
 
+    public SysApi() {
+    }
+
     public List<SysPage> getPageList() {
         return pageList;
     }

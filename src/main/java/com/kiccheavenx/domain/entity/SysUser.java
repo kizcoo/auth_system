@@ -22,6 +22,9 @@ public class SysUser {
         this.roleList = roleList;
     }
 
+    public SysUser() {
+    }
+
     public SysUser(Integer id, String username, String account, Short status, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
